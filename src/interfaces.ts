@@ -66,6 +66,18 @@ interface FormState {
   countryError: string;
 }
 
+interface SubmitData {
+  nameInput: HTMLInputElement | null;
+  surNameInput: HTMLInputElement | null;
+  dateOfBirthInput: HTMLInputElement | null;
+  countryInput: HTMLSelectElement | null;
+  statusInputs: HTMLInputElement[] | null;
+  genderInputs: HTMLInputElement[] | null;
+  notificationsInput: HTMLInputElement | null;
+  pictureInput: HTMLInputElement | null;
+  errors: Record<string, string>;
+}
+
 export type {
   User,
   CardProps,
@@ -77,4 +89,5 @@ export type {
   HeaderState,
   FormProps,
   FormState,
+  SubmitData,
 };

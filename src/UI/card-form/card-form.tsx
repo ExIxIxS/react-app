@@ -1,26 +1,30 @@
 import React, { Component, createRef } from 'react';
+
+import { CardData, FormProps, FormState, SubmitData } from '../../interfaces';
+
 import './card-form.scss';
-import { CardData, FormProps, FormState } from '../../interfaces';
+
+const initialFormState = {
+  name: '',
+  surname: '',
+  dateOfBirth: '',
+  country: '',
+  status: [],
+  gender: '',
+  notifications: false,
+  picture: '',
+  errors: {},
+  isFormSubmitted: false,
+  nameError: '',
+  surNameError: '',
+  dateOfBirthError: '',
+  countryError: '',
+};
 
 class CardForm extends Component<FormProps, FormState> {
   constructor(props: FormProps) {
     super(props);
-    this.state = {
-      name: '',
-      surname: '',
-      dateOfBirth: '',
-      country: '',
-      status: [],
-      gender: '',
-      notifications: false,
-      picture: '',
-      errors: {},
-      isFormSubmitted: false,
-      nameError: '',
-      surNameError: '',
-      dateOfBirthError: '',
-      countryError: '',
-    };
+    this.state = { ...initialFormState };
   }
 
   private nameRef = createRef<HTMLInputElement>();
@@ -33,90 +37,118 @@ class CardForm extends Component<FormProps, FormState> {
   private notificationsRef = createRef<HTMLInputElement>();
   private pictureRef = createRef<HTMLInputElement>();
 
-  handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-    this.setState({ isFormSubmitted: true });
-    event.preventDefault();
+  private createSubmitDataObj(): SubmitData {
+    return {
+      nameInput: this.nameRef.current!,
+      surNameInput: this.surNameRef.current!,
+      dateOfBirthInput: this.dateOfBirthRef.current!,
+      countryInput: this.countryRef.current!,
+      statusInputs: this.statusRefs.map((ref) => ref.current!),
+      genderInputs: [this.maleGenderRef.current!, this.femaleGenderRef.current!],
+      notificationsInput: this.notificationsRef.current!,
+      pictureInput: this.pictureRef.current!,
+      errors: {},
+    };
+  }
 
-    const nameInput = this.nameRef.current!;
-    const surNameInput = this.surNameRef.current!;
-    const dateOfBirthInput = this.dateOfBirthRef.current!;
-    const countryInput = this.countryRef.current!;
-    const statusInputs = this.statusRefs.map((ref) => ref.current!);
-    const genderInputs = [this.maleGenderRef.current!, this.femaleGenderRef.current!];
-    const notificationsInput = this.notificationsRef.current!;
-    const pictureInput = this.pictureRef.current!;
-
-    const errors: Record<string, string> = {};
+  private validateForm(submitData: SubmitData) {
     let hasErrors = false;
 
-    // Validation checks
-    if (!nameInput.value.trim()) {
-      errors.name = 'Name is required';
-      hasErrors = true;
-    } else if (!/^[A-Z]/.test(nameInput.value)) {
-      errors.name = 'Name must start with an uppercase letter';
-      hasErrors = true;
-    }
-
-    if (!surNameInput.value.trim()) {
-      errors.surname = 'Surname is required';
-      hasErrors = true;
-    } else if (!/^[A-Z]/.test(surNameInput.value)) {
-      errors.surname = 'Surname must start with an uppercase letter';
-      hasErrors = true;
-    }
-
-    if (!dateOfBirthInput.value.trim()) {
-      errors.dateOfBirth = 'Date of birth is required';
-      hasErrors = true;
-    }
-
-    if (dateOfBirthInput.value.trim() && Date.parse(dateOfBirthInput.value.trim()) >= Date.now()) {
-      errors.dateOfBirth = 'Person must have already been born';
-      hasErrors = true;
-    }
-
-    if (!countryInput.value.trim()) {
-      errors.country = 'Country is required';
-      hasErrors = true;
-    }
-
-    if (!genderInputs.some((input) => input.checked)) {
-      errors.gender = 'Gender is required';
-      hasErrors = true;
-    }
-
-    // Display errors if there are any
-    if (hasErrors) {
-      this.setState({ errors });
+    if (!submitData) {
       return;
     }
 
-    const cardData: CardData = {
-      name: `${nameInput.value} ${surNameInput.value}`,
-      dateOfBirth: dateOfBirthInput.value,
-      country: countryInput.value,
-      status: statusInputs
-        .filter((input) => input.checked)
-        .map((input) => (input.value ? input.value : '')),
-      gender: genderInputs.find((input) => input.checked)?.value ?? 'unknown',
-      notifications: notificationsInput.checked,
-      picture: pictureInput.files![0] ? URL.createObjectURL(pictureInput.files![0]) : '',
-    };
+    if (!submitData.nameInput?.value.trim()) {
+      submitData.errors.name = 'Name is required';
+      hasErrors = true;
+    } else if (!/^[A-Z]/.test(submitData.nameInput.value)) {
+      submitData.errors.name = 'Name must start with an uppercase letter';
+      hasErrors = true;
+    }
 
-    this.props.onSubmit(cardData);
+    if (!submitData.surNameInput?.value.trim()) {
+      submitData.errors.surname = 'Surname is required';
+      hasErrors = true;
+    } else if (!/^[A-Z]/.test(submitData.surNameInput.value)) {
+      submitData.errors.surname = 'Surname must start with an uppercase letter';
+      hasErrors = true;
+    }
 
-    // Reset form inputs and errors
-    nameInput.value = '';
-    surNameInput.value = '';
-    dateOfBirthInput.value = '';
-    countryInput.value = '';
-    genderInputs.forEach((input) => (input.checked = false));
-    notificationsInput.checked = false;
-    pictureInput.value = '';
+    if (!submitData.dateOfBirthInput?.value.trim()) {
+      submitData.errors.dateOfBirth = 'Date of birth is required';
+      hasErrors = true;
+    }
+
+    if (
+      submitData.dateOfBirthInput?.value.trim() &&
+      Date.parse(submitData.dateOfBirthInput.value.trim()) >= Date.now()
+    ) {
+      submitData.errors.dateOfBirth = 'Person must have already been born';
+      hasErrors = true;
+    }
+
+    if (!submitData.countryInput?.value.trim()) {
+      submitData.errors.country = 'Country is required';
+      hasErrors = true;
+    }
+
+    if (!submitData.genderInputs?.some((input) => input.checked)) {
+      submitData.errors.gender = 'Gender is required';
+      hasErrors = true;
+    }
+
+    if (hasErrors) {
+      this.setState({ errors: submitData.errors });
+      return;
+    }
+  }
+
+  private resetForm(submitData: SubmitData): void {
+    if (!submitData) {
+      return;
+    }
+
+    submitData.nameInput!.value = '';
+    submitData.surNameInput!.value = '';
+    submitData.dateOfBirthInput!.value = '';
+    submitData.countryInput!.value = '';
+    submitData.genderInputs!.forEach((input) => (input.checked = false));
+    submitData.notificationsInput!.checked = false;
+    submitData.pictureInput!.value = '';
     this.statusRefs.forEach((ref) => (ref.current!.checked = false));
-
     this.setState({ errors: {} });
+  }
+
+  private getCardData(submitData: SubmitData): CardData {
+    return {
+      name: `${submitData.nameInput?.value} ${submitData.surNameInput?.value}`,
+      dateOfBirth: submitData.dateOfBirthInput?.value ?? '',
+      country: submitData.countryInput?.value ?? '',
+      status: submitData.statusInputs
+        ? submitData.statusInputs
+            .filter((input) => input.checked)
+            .map((input) => (input.value ? input.value : ''))
+        : [],
+      gender: submitData.genderInputs?.find((input) => input.checked)?.value ?? 'unknown',
+      notifications: submitData.notificationsInput ? submitData.notificationsInput.checked : false,
+      picture: submitData.pictureInput?.files![0]
+        ? URL.createObjectURL(submitData.pictureInput.files![0])
+        : '',
+    };
+  }
+
+  private handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    this.setState({ isFormSubmitted: true });
+    event.preventDefault();
+
+    const submitData = this.createSubmitDataObj();
+    this.validateForm(submitData);
+
+    if (!Object.keys(submitData.errors).length) {
+      const cardData = this.getCardData(submitData);
+      this.props.onSubmit(cardData);
+      this.resetForm(submitData);
+    }
   };
 
   render() {
