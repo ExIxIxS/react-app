@@ -97,6 +97,16 @@ class CardForm extends Component<FormProps, FormState> {
       hasErrors = true;
     }
 
+    if (!submitData.notificationsInput?.checked) {
+      submitData.errors.notifications = 'Notifications is required';
+      hasErrors = true;
+    }
+
+    if (!submitData.pictureInput?.value) {
+      submitData.errors.picture = 'Picture is required';
+      hasErrors = true;
+    }
+
     if (hasErrors) {
       this.setState({ errors: submitData.errors });
       return;
