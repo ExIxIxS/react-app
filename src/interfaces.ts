@@ -6,7 +6,6 @@ interface User {
 
 interface CardProps {
   name: string;
-  surname: string;
   dateOfBirth: string;
   country: string;
   status: string[];
@@ -17,7 +16,6 @@ interface CardProps {
 
 interface CardData {
   name: string;
-  surname: string;
   dateOfBirth: string;
   country: string;
   status: string[];
@@ -46,6 +44,28 @@ interface HeaderState {
   // Define your state types here
 }
 
+interface FormProps {
+  initialCards: CardData[];
+  onSubmit: (cardData: CardData) => void;
+}
+
+interface FormState {
+  name: string;
+  surname: string;
+  dateOfBirth: string;
+  country: string;
+  status: string[];
+  gender: string;
+  notifications: boolean;
+  picture: string;
+  errors: { [key: string]: string };
+  isFormSubmitted: boolean; // Include isFormSubmitted in the state type definition
+  nameError: string;
+  surNameError: string;
+  dateOfBirthError: string;
+  countryError: string;
+}
+
 export type {
   User,
   CardProps,
@@ -55,4 +75,6 @@ export type {
   SearchState,
   HeaderProps,
   HeaderState,
+  FormProps,
+  FormState,
 };

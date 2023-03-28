@@ -1,28 +1,6 @@
 import React, { Component, createRef } from 'react';
 import './card-form.scss';
-import { CardData } from '../../interfaces';
-
-interface FormProps {
-  initialCards: CardData[];
-  onSubmit: (cardData: CardData) => void;
-}
-
-interface FormState {
-  name: string;
-  surname: string;
-  dateOfBirth: string;
-  country: string;
-  status: string[];
-  gender: string;
-  notifications: boolean;
-  picture: string;
-  errors: { [key: string]: string };
-  isFormSubmitted: boolean; // Include isFormSubmitted in the state type definition
-  nameError: string;
-  surNameError: string;
-  dateOfBirthError: string;
-  countryError: string;
-}
+import { CardData, FormProps, FormState } from '../../interfaces';
 
 class CardForm extends Component<FormProps, FormState> {
   constructor(props: FormProps) {
@@ -35,7 +13,7 @@ class CardForm extends Component<FormProps, FormState> {
       status: [],
       gender: '',
       notifications: false,
-      picture: '../src/assets/img/react.png',
+      picture: '',
       errors: {},
       isFormSubmitted: false,
       nameError: '',
@@ -63,8 +41,8 @@ class CardForm extends Component<FormProps, FormState> {
     const surNameInput = this.surNameRef.current!;
     const dateOfBirthInput = this.dateOfBirthRef.current!;
     const countryInput = this.countryRef.current!;
-    const statusValues = this.statusRefs.map((ref) => ref.current!.value);
-    const genderInput = this.maleGenderRef.current! || this.maleGenderRef.current!;
+    const statusInputs = this.statusRefs.map((ref) => ref.current!);
+    const genderInputs = [this.maleGenderRef.current!, this.femaleGenderRef.current!];
     const notificationsInput = this.notificationsRef.current!;
     const pictureInput = this.pictureRef.current!;
 
@@ -93,12 +71,17 @@ class CardForm extends Component<FormProps, FormState> {
       hasErrors = true;
     }
 
+    if (dateOfBirthInput.value.trim() && Date.parse(dateOfBirthInput.value.trim()) >= Date.now()) {
+      errors.dateOfBirth = 'Person must have already been born';
+      hasErrors = true;
+    }
+
     if (!countryInput.value.trim()) {
       errors.country = 'Country is required';
       hasErrors = true;
     }
 
-    if (!genderInput.checked) {
+    if (!genderInputs.some((input) => input.checked)) {
       errors.gender = 'Gender is required';
       hasErrors = true;
     }
@@ -110,14 +93,15 @@ class CardForm extends Component<FormProps, FormState> {
     }
 
     const cardData: CardData = {
-      name: nameInput.value + surNameInput.value,
+      name: `${nameInput.value} ${surNameInput.value}`,
       dateOfBirth: dateOfBirthInput.value,
       country: countryInput.value,
-      status: statusValues,
-      gender: genderInput.value,
+      status: statusInputs
+        .filter((input) => input.checked)
+        .map((input) => (input.value ? input.value : '')),
+      gender: genderInputs.find((input) => input.checked)?.value ?? 'unknown',
       notifications: notificationsInput.checked,
-      picture: '../src/assets/img/react.png',
-      surname: surNameInput.value,
+      picture: pictureInput.files![0] ? URL.createObjectURL(pictureInput.files![0]) : '',
     };
 
     this.props.onSubmit(cardData);
@@ -127,22 +111,12 @@ class CardForm extends Component<FormProps, FormState> {
     surNameInput.value = '';
     dateOfBirthInput.value = '';
     countryInput.value = '';
-    genderInput.checked = false;
+    genderInputs.forEach((input) => (input.checked = false));
     notificationsInput.checked = false;
     pictureInput.value = '';
-    this.statusRefs.map((ref) => (ref.current!.value = ''));
+    this.statusRefs.forEach((ref) => (ref.current!.checked = false));
 
     this.setState({ errors: {} });
-  };
-
-  handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = event.target;
-    this.setState((prevState) => ({
-      errors: {
-        ...prevState.errors,
-        [name]: value.trim() ? '' : `${name.charAt(0).toUpperCase() + name.slice(1)} is required`,
-      },
-    }));
   };
 
   render() {
@@ -298,7 +272,7 @@ class CardForm extends Component<FormProps, FormState> {
         </button>
 
         {isFormSubmitted && Object.keys(errors).length === 0 && (
-          <div>Form submitted successfully!</div>
+          <div className="form__form-submition-message">Form submitted successfully!</div>
         )}
       </form>
     );

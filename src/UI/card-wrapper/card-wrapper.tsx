@@ -8,7 +8,7 @@ const CardWrapper: React.FC<CardWrapperProps> = ({ cards }) => {
   return (
     <div className="card-wrapper">
       {cards.map((cardData) => (
-        <Card key={Date.now() + Math.round(Math.random() * 100)} {...cardData} />
+        <Card key={cardData.name + Math.round(Math.random() * 100000000)} {...cardData} />
       ))}
     </div>
   );

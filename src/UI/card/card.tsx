@@ -5,19 +5,19 @@ import { CardProps } from '../../interfaces';
 
 class Card extends React.Component<CardProps> {
   render() {
-    const { name, surname, dateOfBirth, country, status, gender, notifications, picture } =
-      this.props;
+    const { name, dateOfBirth, country, status, gender, notifications, picture } = this.props;
 
     return (
       <div className="card" data-testid="card">
-        <img className="card__image" src={picture} alt={`${name} ${surname} profile picture`} />
+        <img
+          className="card__image"
+          src={picture ? picture : '../src/assets/img/react.png'}
+          alt={`${name} profile picture`}
+        />
         <div className="card__content">
           <div className="card__info">
             <p>
               <strong>Name:</strong> {name}
-            </p>
-            <p>
-              <strong>Surname:</strong> {surname}
             </p>
             <p>
               <strong>Date of Birth:</strong> {dateOfBirth}
