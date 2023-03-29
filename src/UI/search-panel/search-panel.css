@@ -1,1 +1,1 @@
-.search-input__input{padding:.5rem 1rem;border:1px solid #ccc;border-radius:.25rem;font-size:1rem}.search-input__input:focus{outline:none;box-shadow:0 0 0 2px rgba(31,31,241,.5)}
+.search-panel{width:80%}.search-panel__input{width:100%;margin:20px 0;padding:1.2rem 1rem;border:1px solid #ccc;border-radius:1.25rem;font-size:1rem}.search-panel__input:focus{outline:none;box-shadow:0 0 16px 2px #fba01a}

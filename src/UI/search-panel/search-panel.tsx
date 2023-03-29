@@ -35,9 +35,9 @@ class SearchPanel extends React.Component<SearchProps, SearchState> {
 
   render() {
     return (
-      <div className="search-input">
+      <div className="search-panel">
         <input
-          className="search-input__input"
+          className="search-panel__input"
           type="text"
           value={this.state.searchQuery}
           onChange={this.handleInputChange}

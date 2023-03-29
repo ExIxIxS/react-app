@@ -14,6 +14,16 @@
   -webkit-text-size-adjust: 100%;
 }
 
+html {
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+}
+
+*, *::before, *::after {
+  -webkit-box-sizing: inherit;
+          box-sizing: inherit;
+}
+
 a {
   font-weight: 500;
   color: #646cff;
@@ -35,7 +45,18 @@ body {
 }
 
 main {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.app-container {
   width: 80%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
 }
 
 h1 {

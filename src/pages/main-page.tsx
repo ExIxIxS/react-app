@@ -7,10 +7,10 @@ import cardData from '../assets/cardsDB';
 class MainPage extends Component {
   render() {
     return (
-      <div>
+      <>
         <SearchPanel />
         <CardWrapper cards={cardData} />
-      </div>
+      </>
     );
   }
 }

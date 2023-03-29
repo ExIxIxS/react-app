@@ -22,7 +22,6 @@ class FormPage extends React.Component<FormPageProps, FormPageState> {
   addNewCard = (cardObj?: CardData | undefined) => {
     const newCard = {
       name: cardObj?.name ?? 'User name',
-      surname: cardObj?.surname ?? 'User surname',
       dateOfBirth: cardObj?.dateOfBirth ?? '-',
       country: cardObj?.country ?? '-',
       status: cardObj?.status ?? ['-'],
@@ -36,10 +35,10 @@ class FormPage extends React.Component<FormPageProps, FormPageState> {
 
   render() {
     return (
-      <div>
+      <>
         <CardForm onSubmit={this.addNewCard} initialCards={[]} />
         <CardWrapper cards={this.state.cards || []} />
-      </div>
+      </>
     );
   }
 }

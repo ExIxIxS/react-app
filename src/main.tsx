@@ -14,7 +14,9 @@ const router = createBrowserRouter([
     element: (
       <>
         <Header />
-        <Outlet />
+        <main>
+          <Outlet />
+        </main>
       </>
     ),
     children: [

@@ -1,13 +1,17 @@
-.search-input {
+.search-panel {
+  width: 80%;
+
   &__input {
-    padding: 0.5rem 1rem;
-    border: 1px solid #ccc;
-    border-radius: 0.25rem;
-    font-size: 1rem;
+      width: 100%;
+      margin: 20px 0;
+      padding: 1.2rem 1rem;
+      border: 1px solid #ccc;
+      border-radius: 1.25rem;
+      font-size: 1rem;
 
     &:focus {
       outline: none;
-      box-shadow: 0 0 0 2px rgba(31, 31, 241, 0.5);
+      box-shadow: 0 0 16px 2px #fba01a;
     }
   }
 }
