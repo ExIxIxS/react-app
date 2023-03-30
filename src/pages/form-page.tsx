@@ -1,25 +1,12 @@
-import React from 'react';
+import { useState } from 'react';
 import CardWrapper from '../UI/card-wrapper/card-wrapper';
 import CardForm from '../UI/card-form/card-form';
 import { CardData } from '../interfaces';
 
-interface FormPageProps {
-  initialCards?: CardData[];
-}
+function FormPage() {
+  const [cards, setCards] = useState<CardData[]>([]);
 
-interface FormPageState {
-  cards: CardData[];
-}
-
-class FormPage extends React.Component<FormPageProps, FormPageState> {
-  constructor(props: FormPageProps) {
-    super(props);
-    this.state = {
-      cards: [],
-    };
-  }
-
-  addNewCard = (cardObj?: CardData | undefined) => {
+  function addNewCard(cardObj?: CardData): void {
     const newCard = {
       name: cardObj?.name ?? 'User name',
       dateOfBirth: cardObj?.dateOfBirth ?? '-',
@@ -30,17 +17,15 @@ class FormPage extends React.Component<FormPageProps, FormPageState> {
       picture: cardObj?.picture ?? '../src/assets/img/react.png',
     };
 
-    this.setState({ cards: [...this.state.cards, newCard] });
-  };
-
-  render() {
-    return (
-      <>
-        <CardForm onSubmit={this.addNewCard} initialCards={[]} />
-        <CardWrapper cards={this.state.cards || []} />
-      </>
-    );
+    setCards([...cards, newCard]);
   }
+
+  return (
+    <>
+      <CardForm addCardCallBack={addNewCard} />
+      <CardWrapper cards={cards} />
+    </>
+  );
 }
 
 export default FormPage;

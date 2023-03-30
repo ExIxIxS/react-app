@@ -1,60 +1,34 @@
-import React from 'react';
+import { useState } from 'react';
 import { NavLink } from 'react-router-dom';
+import { HeaderProps } from 'interfaces';
 import './header.scss';
 
-class Header extends React.Component {
-  render() {
-    return (
-      <header className="header">
-        <nav className="header__nav">
-          <ul className="header__list">
-            <li className="header__list-item">
+function Header({ links }: HeaderProps): JSX.Element {
+  const [activeLinkIndex, setActiveLinkIndex] = useState<number | null>(null);
+
+  const handleLinkClick = (index: number) => {
+    setActiveLinkIndex(index === activeLinkIndex ? null : index);
+  };
+
+  return (
+    <header className="header">
+      <nav className="header__nav">
+        <ul className="header__list">
+          {links.map((link, index) => (
+            <li key={index} className="header__list-item">
               <NavLink
-                to="/"
-                className={({ isActive, isPending }) =>
-                  isPending
-                    ? 'pending header__link'
-                    : isActive
-                    ? 'active header__link'
-                    : 'header__link'
-                }
+                to={link.to}
+                className={index === activeLinkIndex ? 'active header__link' : 'header__link'}
+                onClick={() => handleLinkClick(index)}
               >
-                Home
+                {link.label}
               </NavLink>
             </li>
-            <li className="header__list-item">
-              <NavLink
-                to="/form"
-                className={({ isActive, isPending }) =>
-                  isPending
-                    ? 'pending header__link'
-                    : isActive
-                    ? 'active header__link'
-                    : 'header__link'
-                }
-              >
-                Form
-              </NavLink>
-            </li>
-            <li className="header__list-item">
-              <NavLink
-                to="/about"
-                className={({ isActive, isPending }) =>
-                  isPending
-                    ? 'pending header__link'
-                    : isActive
-                    ? 'active header__link'
-                    : 'header__link'
-                }
-              >
-                About Us
-              </NavLink>
-            </li>
-          </ul>
-        </nav>
-      </header>
-    );
-  }
+          ))}
+        </ul>
+      </nav>
+    </header>
+  );
 }
 
 export default Header;

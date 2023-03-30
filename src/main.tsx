@@ -9,11 +9,17 @@ import FormPage from './pages/form-page';
 
 import './index.css';
 
+const headerLinks = [
+  { to: '/', label: 'Home' },
+  { to: '/form', label: 'Form' },
+  { to: '/about', label: 'About Us' },
+];
+
 const router = createBrowserRouter([
   {
     element: (
       <>
-        <Header />
+        <Header links={headerLinks} />
         <main>
           <Outlet />
         </main>

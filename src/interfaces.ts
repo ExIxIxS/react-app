@@ -14,34 +14,10 @@ interface CardProps {
   picture: string | null;
 }
 
-interface CardData {
-  name: string;
-  dateOfBirth: string;
-  country: string;
-  status: string[];
-  gender: string;
-  notifications: boolean;
-  picture: string | null;
-}
+interface CardData extends CardProps {}
 
 interface CardWrapperProps {
   cards: CardData[];
-}
-
-interface SearchProps {
-  // Define the props here
-}
-
-interface SearchState {
-  searchQuery: string;
-}
-
-interface HeaderProps {
-  // Define your props types here
-}
-
-interface HeaderState {
-  // Define your state types here
 }
 
 interface FormProps {
@@ -78,16 +54,33 @@ interface SubmitData {
   errors: Record<string, string>;
 }
 
+interface FormPageProps {
+  initialCards?: CardData[];
+}
+
+interface FormPageState {
+  cards: CardData[];
+}
+
+interface HeaderLink {
+  to: string;
+  label: string;
+}
+
+interface HeaderProps {
+  links: HeaderLink[];
+}
+
 export type {
   User,
   CardProps,
   CardData,
   CardWrapperProps,
-  SearchProps,
-  SearchState,
   HeaderProps,
-  HeaderState,
   FormProps,
   FormState,
   SubmitData,
+  FormPageProps,
+  FormPageState,
+  HeaderLink,
 };
