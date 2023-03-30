@@ -19,11 +19,11 @@ const router = createBrowserRouter([
         </main>
       </>
     ),
+    errorElement: <NotFoundPage />,
     children: [
       {
         path: '/',
         element: <MainPage />,
-        errorElement: <NotFoundPage />,
       },
       {
         path: 'form',

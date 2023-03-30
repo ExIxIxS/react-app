@@ -24,13 +24,13 @@ class SearchPanel extends React.Component<SearchProps, SearchState> {
   }
 
   componentWillUnmount() {
-    localStorage.setItem('searchQuery', this.componentStorage);
+    localStorage.setItem('searchQuery', this.state.searchQuery);
   }
 
   handleInputChange(event: React.ChangeEvent<HTMLInputElement>) {
     const searchQuery = event.target.value;
     localStorage.setItem('searchQuery', searchQuery);
-    this.setState({ searchQuery: searchQuery });
+    this.setState({ searchQuery });
   }
 
   render() {

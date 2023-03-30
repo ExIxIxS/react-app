@@ -10,18 +10,25 @@ $background-color: #fff;
   justify-content: center;
   align-items: center;
 
-  &__list {
+  & &__nav {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  & &__list {
     display: flex;
     list-style: none;
     margin: 0;
     padding: 0;
   }
 
-  &__list-item {
-    margin-right: 1rem;
+  & &__list-item {
+    margin: 0 1rem;
+    font-size: 1.4rem;
   }
 
-  &__link {
+  & &__link {
     color: $primary-color;
     font-weight: bold;
     text-decoration: none;
