@@ -11,54 +11,12 @@ interface CardProps {
   status: string[];
   gender: string;
   notifications: boolean;
-  picture: string | null;
+  picture: string | URL;
 }
 
 interface CardData extends CardProps {}
 
 interface CardWrapperProps {
-  cards: CardData[];
-}
-
-interface FormProps {
-  initialCards: CardData[];
-  onSubmit: (cardData: CardData) => void;
-}
-
-interface FormState {
-  name: string;
-  surname: string;
-  dateOfBirth: string;
-  country: string;
-  status: string[];
-  gender: string;
-  notifications: boolean;
-  picture: string;
-  errors: { [key: string]: string };
-  isFormSubmitted: boolean; // Include isFormSubmitted in the state type definition
-  nameError: string;
-  surNameError: string;
-  dateOfBirthError: string;
-  countryError: string;
-}
-
-interface SubmitData {
-  nameInput: HTMLInputElement | null;
-  surNameInput: HTMLInputElement | null;
-  dateOfBirthInput: HTMLInputElement | null;
-  countryInput: HTMLSelectElement | null;
-  statusInputs: HTMLInputElement[] | null;
-  genderInputs: HTMLInputElement[] | null;
-  notificationsInput: HTMLInputElement | null;
-  pictureInput: HTMLInputElement | null;
-  errors: Record<string, string>;
-}
-
-interface FormPageProps {
-  initialCards?: CardData[];
-}
-
-interface FormPageState {
   cards: CardData[];
 }
 
@@ -71,16 +29,26 @@ interface HeaderProps {
   links: HeaderLink[];
 }
 
+type SubmitCardCallBack = (data: CardData) => void;
+
+interface FormInputData {
+  name: string;
+  surName: string;
+  dateOfBirth: string;
+  country: string;
+  status: string[];
+  gender: string;
+  notifications: boolean;
+  picture: FileList;
+}
+
 export type {
   User,
   CardProps,
   CardData,
   CardWrapperProps,
   HeaderProps,
-  FormProps,
-  FormState,
-  SubmitData,
-  FormPageProps,
-  FormPageState,
   HeaderLink,
+  SubmitCardCallBack,
+  FormInputData,
 };
