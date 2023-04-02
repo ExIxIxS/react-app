@@ -41,7 +41,7 @@ interface FormInputData {
   status: string[];
   gender: string;
   notifications: boolean;
-  picture: FileList | undefined;
+  picture: FileList;
 }
 
 type CustomFieldErrors = {

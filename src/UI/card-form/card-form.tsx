@@ -96,7 +96,7 @@ function CardForm({ addCardCallBack }: { addCardCallBack: SubmitCardCallBack }):
       <div className="form__group">
         <label className="form__label">Status:</label>
         <div className="form__checkbox-group">
-          <label className="form__checkbox-label">
+          <label className="form__label--checkbox">
             <input
               className="form__input  form__input--checkbox"
               type="checkbox"
@@ -106,9 +106,7 @@ function CardForm({ addCardCallBack }: { addCardCallBack: SubmitCardCallBack }):
             />
             Married
           </label>
-        </div>
-        <div className="form__checkbox-group">
-          <label className="form__checkbox-label">
+          <label className="form__label--checkbox">
             <input
               className="form__input form__input--checkbox"
               type="checkbox"
@@ -124,40 +122,47 @@ function CardForm({ addCardCallBack }: { addCardCallBack: SubmitCardCallBack }):
 
       <div className="form__group">
         <label className="form__label">Gender:</label>
-        <input
-          type="radio"
-          id="male-radio"
-          value="male"
-          className="form__input form__input--radio"
-          data-testid="male-radio"
-          {...register('gender', { ...countryValidator })}
-        />
-        <label htmlFor="male-radio" className="form__label form__label--radio">
-          Male
-        </label>
-        <input
-          type="radio"
-          id="female-radio"
-          value="female"
-          className="form__input form__input--radio"
-          data-testid="female-radio"
-          {...register('gender', { ...genderValidator })}
-        />
-        <label htmlFor="female-radio" className="form__label form__label--radio">
-          Female
-        </label>
+        <div className="form__radio-group">
+          <label htmlFor="male-radio" className="form__label form__label--radio">
+            <input
+              type="radio"
+              id="male-radio"
+              value="male"
+              className="form__input form__input--radio"
+              data-testid="male-radio"
+              {...register('gender', { ...countryValidator })}
+            />
+            Male
+          </label>
+          <label htmlFor="female-radio" className="form__label form__label--radio">
+            <input
+              type="radio"
+              id="female-radio"
+              value="female"
+              className="form__input form__input--radio"
+              data-testid="female-radio"
+              {...register('gender', { ...genderValidator })}
+            />
+            Female
+          </label>
+        </div>
         <FormError errors={errors} name="gender" />
       </div>
+
       <div className="form__group">
         <label className="form__label">Notifications:</label>
-        <input
-          type="checkbox"
-          id="notifications-checkbox"
-          className="form__input form__input--checkbox"
-          data-testid="notifications-checkbox"
-          {...register('notifications', { ...notificationsValidator })}
-        />
-        <label htmlFor="notifications-checkbox" className="form__label form__label--checkbox">
+
+        <label
+          htmlFor="notifications-checkbox"
+          className="form__label form__label--checkbox form__label--notifications"
+        >
+          <input
+            type="checkbox"
+            id="notifications-checkbox"
+            className="form__input form__input--checkbox"
+            data-testid="notifications-checkbox"
+            {...register('notifications', { ...notificationsValidator })}
+          />
           Receive notifications
         </label>
         <FormError errors={errors} name="notifications" />
