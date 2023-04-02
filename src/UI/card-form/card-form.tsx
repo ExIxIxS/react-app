@@ -9,21 +9,10 @@ import {
   notificationsValidator,
   pictureValidator,
 } from '../../assets/validators/form-validators';
-import { CardData, FormInputData, SubmitCardCallBack } from '../../interfaces';
+import { getCardData } from '../../assets/functions/forms/forms-functions';
+import { FormInputData, SubmitCardCallBack } from '../../interfaces';
 
 import './card-form.scss';
-
-function getCardData(submitData: FormInputData): CardData {
-  return {
-    name: `${submitData.name} ${submitData.surName}`,
-    dateOfBirth: submitData.dateOfBirth,
-    country: submitData.country,
-    status: submitData.status,
-    gender: submitData.gender,
-    notifications: submitData.notifications,
-    picture: submitData.picture?.length ? URL.createObjectURL(submitData.picture[0]) : '',
-  };
-}
 
 function CardForm({ addCardCallBack }: { addCardCallBack: SubmitCardCallBack }): JSX.Element {
   const {
@@ -46,7 +35,7 @@ function CardForm({ addCardCallBack }: { addCardCallBack: SubmitCardCallBack }):
   function onError(): void {}
 
   return (
-    <form className="form" onSubmit={handleSubmit(onSubmit, onError)} encType="multipart/form-data">
+    <form className="form" onSubmit={handleSubmit(onSubmit, onError)}>
       <div className="form__group">
         <label className="form__label" htmlFor="name-input">
           Name:
@@ -55,6 +44,7 @@ function CardForm({ addCardCallBack }: { addCardCallBack: SubmitCardCallBack }):
           className="form__input"
           type="text"
           id="name-input"
+          data-testid="name-input"
           {...register('name', { ...nameValidator })}
         />
         <FormError errors={errors} name="name" />
@@ -67,6 +57,7 @@ function CardForm({ addCardCallBack }: { addCardCallBack: SubmitCardCallBack }):
           className="form__input"
           type="text"
           id="surname-input"
+          data-testid="surname-input"
           {...register('surName', { ...nameValidator })}
         />
         <FormError errors={errors} name="surName" />
@@ -79,6 +70,7 @@ function CardForm({ addCardCallBack }: { addCardCallBack: SubmitCardCallBack }):
           className="form__input"
           type="date"
           id="dob-input"
+          data-testid="dob-input"
           {...register('dateOfBirth', { ...dateValidator })}
         />
         <FormError errors={errors} name="dateOfBirth" />
@@ -90,6 +82,7 @@ function CardForm({ addCardCallBack }: { addCardCallBack: SubmitCardCallBack }):
         <select
           className="form__input"
           id="country-select"
+          data-testid="country-select"
           {...register('country', { ...countryValidator })}
         >
           <option value="">Select a country</option>
@@ -108,6 +101,7 @@ function CardForm({ addCardCallBack }: { addCardCallBack: SubmitCardCallBack }):
               className="form__input  form__input--checkbox"
               type="checkbox"
               value="married"
+              data-testid="married-checkbox"
               {...register('status')}
             />
             Married
@@ -119,6 +113,7 @@ function CardForm({ addCardCallBack }: { addCardCallBack: SubmitCardCallBack }):
               className="form__input form__input--checkbox"
               type="checkbox"
               value="parent"
+              data-testid="parent-checkbox"
               {...register('status')}
             />
             Parent
@@ -134,6 +129,7 @@ function CardForm({ addCardCallBack }: { addCardCallBack: SubmitCardCallBack }):
           id="male-radio"
           value="male"
           className="form__input form__input--radio"
+          data-testid="male-radio"
           {...register('gender', { ...countryValidator })}
         />
         <label htmlFor="male-radio" className="form__label form__label--radio">
@@ -144,6 +140,7 @@ function CardForm({ addCardCallBack }: { addCardCallBack: SubmitCardCallBack }):
           id="female-radio"
           value="female"
           className="form__input form__input--radio"
+          data-testid="female-radio"
           {...register('gender', { ...genderValidator })}
         />
         <label htmlFor="female-radio" className="form__label form__label--radio">
@@ -157,6 +154,7 @@ function CardForm({ addCardCallBack }: { addCardCallBack: SubmitCardCallBack }):
           type="checkbox"
           id="notifications-checkbox"
           className="form__input form__input--checkbox"
+          data-testid="notifications-checkbox"
           {...register('notifications', { ...notificationsValidator })}
         />
         <label htmlFor="notifications-checkbox" className="form__label form__label--checkbox">
@@ -173,12 +171,18 @@ function CardForm({ addCardCallBack }: { addCardCallBack: SubmitCardCallBack }):
           id="picture-upload"
           accept="image/*"
           className="form__input form__input--picture"
+          data-testid="picture-upload"
           {...register('picture', { ...pictureValidator })}
         />
         <FormError errors={errors} name="picture" />
       </div>
 
-      <button type="submit" className="form__submit-button">
+      <button
+        type="submit"
+        id="submit-button"
+        className="form__submit-button"
+        data-testid="submit-button"
+      >
         Submit
       </button>
 

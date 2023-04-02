@@ -14,7 +14,7 @@ function Card({
     <div className="card" data-testid="card">
       <img
         className="card__image"
-        src={picture ? picture : '../src/assets/img/react.png'}
+        src={picture ? String(picture) : '../src/assets/img/react.png'}
         alt={`${name} profile picture`}
       />
       <div className="card__content">
@@ -34,7 +34,7 @@ function Card({
           <p>
             <strong>Gender:</strong> {gender}
           </p>
-          <p>
+          <p data-testid="notifications-element">
             <strong>Notifications:</strong> {notifications ? 'Enabled' : 'Disabled'}
           </p>
         </div>

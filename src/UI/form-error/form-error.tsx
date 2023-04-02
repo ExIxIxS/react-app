@@ -1,10 +1,5 @@
 import { ErrorMessage } from '@hookform/error-message';
-import { FieldErrors, FieldValues } from 'react-hook-form';
-
-interface FormErrorProps {
-  errors: FieldErrors<FieldValues>;
-  name: string;
-}
+import { FormErrorProps } from 'interfaces';
 
 function FormError({ errors, name }: FormErrorProps) {
   return (

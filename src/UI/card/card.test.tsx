@@ -4,19 +4,37 @@ import { CardProps } from 'interfaces';
 
 describe('Card', () => {
   const props: CardProps = {
-    name: 'John',
-    surname: 'Doe',
-    dateOfBirth: '01/01/2000',
+    name: 'John Smith',
+    dateOfBirth: '01-01-2000',
     country: 'USA',
-    status: ['Active'],
+    status: ['parent'],
     gender: 'male',
-    notifications: true,
-    picture: 'https://example.com/profile.jpg',
+    notifications: false,
+    picture: '',
   };
 
-  it('renders the name correctly', () => {
+  const { container, unmount } = render(<Card {...props} />);
+
+  beforeEach(() => {
     render(<Card {...props} />);
-    const nameElement = screen.getByText(props.name);
-    expect(nameElement).toBeInTheDocument();
+  });
+
+  afterEach(() => {
+    unmount();
+  });
+
+  it('mounts in the document', () => {
+    expect(container).toBeInTheDocument();
+  });
+
+  it('includes img url', () => {
+    const imgElement = screen.getByAltText(`${props.name} profile picture`) as HTMLImageElement;
+    expect(imgElement?.src).toEqual('http://localhost:3000/src/assets/img/react.png');
+  });
+
+  it('displays the correct notifications status', () => {
+    const notificationsElement = screen.getByTestId('notifications-element');
+    const expectedText = `Notifications: ${props.notifications ? 'Enabled' : 'Disabled'}`;
+    expect(notificationsElement).toHaveTextContent(expectedText);
   });
 });

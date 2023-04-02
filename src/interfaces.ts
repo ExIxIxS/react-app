@@ -1,3 +1,5 @@
+import { FieldErrors, FieldValues } from 'react-hook-form';
+
 interface User {
   id: string;
   avatar: string;
@@ -39,7 +41,18 @@ interface FormInputData {
   status: string[];
   gender: string;
   notifications: boolean;
-  picture: FileList;
+  picture: FileList | undefined;
+}
+
+type CustomFieldErrors = {
+  [key: string]: {
+    message: string;
+  };
+};
+
+interface FormErrorProps {
+  errors: CustomFieldErrors | FieldErrors<FieldValues>;
+  name: string;
 }
 
 export type {
@@ -51,4 +64,5 @@ export type {
   HeaderLink,
   SubmitCardCallBack,
   FormInputData,
+  FormErrorProps,
 };
