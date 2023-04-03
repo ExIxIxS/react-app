@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 
 function useLocalStorage(key: string, initialValue: string): [string, (value: string) => void] {
   const [value, setValue] = useState(() => {
@@ -6,9 +6,17 @@ function useLocalStorage(key: string, initialValue: string): [string, (value: st
     return storedValue ?? initialValue;
   });
 
+  const valueRef = useRef<string>(value);
+
   useEffect(() => {
-    localStorage.setItem(key, value);
-  }, [key, value]);
+    valueRef.current = value;
+  }, [value]);
+
+  useEffect(() => {
+    return () => {
+      localStorage.setItem(key, valueRef.current);
+    };
+  }, [key]);
 
   return [value, setValue];
 }
