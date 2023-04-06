@@ -1,13 +1,16 @@
 import SearchPanel from '../UI/search-panel/search-panel';
+import RestCardWrapper from '../UI/rest-card-wrapper/rest-card-wrapper';
+import { useState } from 'react';
 
-import CardWrapper from '../UI/card-wrapper/card-wrapper';
-import cardData from '../assets/cardsDB';
+import { RestAuthorData } from 'interfaces';
 
 function MainPage() {
+  const [autors, setAutors] = useState<RestAuthorData[]>([]);
+
   return (
     <>
-      <SearchPanel />
-      <CardWrapper cards={cardData} />
+      <SearchPanel responseCallBack={setAutors} />
+      <RestCardWrapper restAuthorsData={autors} />
     </>
   );
 }
