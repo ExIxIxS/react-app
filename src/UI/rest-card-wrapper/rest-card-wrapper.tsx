@@ -1,16 +1,18 @@
 import React from 'react';
 import RestCard from '../rest-card/rest-card';
-import './rest-card-wrapper.scss';
 import { RestAuthorData } from '../../interfaces';
+
+import './rest-card-wrapper.scss';
 
 const MemoizedCard = React.memo(RestCard);
 
 function RestCardWrapper({ restAuthorsData }: { restAuthorsData: RestAuthorData[] }): JSX.Element {
   return (
     <div className="card-wrapper">
-      {restAuthorsData
+      {(restAuthorsData as RestAuthorData[])
+        .sort((a, b) => b.work_count - a.work_count)
         .filter((_, index) => index < 12)
-        .map((restAuthorData: RestAuthorData) => (
+        .map((restAuthorData) => (
           <MemoizedCard
             id={restAuthorData.key}
             name={restAuthorData.name}

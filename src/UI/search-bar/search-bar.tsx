@@ -2,15 +2,23 @@ import { useEffect } from 'react';
 import { useLocalStorage } from '../../assets/functions/hooks/localeStorage.hooks';
 import { processSearch } from '../../assets/functions/rest/rest-functions';
 import { getKeyDownHandler } from '../../assets/functions/handlers/event-handler-functions';
-import { SearchCallBack } from 'interfaces';
+import { NotificationCallBack, SearchCallBack, SearchProgressCallBack } from 'interfaces';
 
-import './search-panel.scss';
+import './search-bar.scss';
 
-function SearchPanel({ responseCallBack }: { responseCallBack: SearchCallBack }): JSX.Element {
+function SearchBar({
+  responseCallBack,
+  notificationCallBack,
+  progressCallBack,
+}: {
+  responseCallBack: SearchCallBack;
+  notificationCallBack: NotificationCallBack;
+  progressCallBack: SearchProgressCallBack;
+}): JSX.Element {
   const [searchQuery, setSearchQuery] = useLocalStorage('searchQuery', '');
 
   useEffect(() => {
-    processSearch(searchQuery, responseCallBack);
+    processSearch(searchQuery, responseCallBack, notificationCallBack);
   }, []);
 
   return (
@@ -22,10 +30,15 @@ function SearchPanel({ responseCallBack }: { responseCallBack: SearchCallBack })
         onChange={async (e: React.ChangeEvent<HTMLInputElement>) => {
           setSearchQuery(e.target.value);
         }}
-        onKeyDown={getKeyDownHandler<SearchCallBack>('Enter', responseCallBack)}
+        onKeyDown={getKeyDownHandler<SearchCallBack, NotificationCallBack, SearchProgressCallBack>(
+          'Enter',
+          responseCallBack,
+          notificationCallBack,
+          progressCallBack
+        )}
       />
     </div>
   );
 }
 
-export default SearchPanel;
+export default SearchBar;

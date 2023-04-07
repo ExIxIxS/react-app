@@ -85,6 +85,10 @@ interface RestSearchData {
 
 type SearchCallBack = (arg: RestAuthorData[]) => void;
 
+type NotificationCallBack = (arg: string) => void;
+
+type SearchProgressCallBack = (arg: boolean) => void;
+
 type AuthorCallBack = (arg: RestAuthor) => void;
 
 interface RestAuthor {
@@ -147,6 +151,14 @@ interface CardAuthorProps {
   clickHandler?: () => void;
 }
 
+interface ProgressBarProps {
+  isInProgress: boolean;
+}
+
+interface NotificationProps {
+  notification: string;
+}
+
 export type {
   User,
   CardProps,
@@ -165,4 +177,8 @@ export type {
   AuthorCallBack,
   AuthorCardData,
   CardAuthorProps,
+  NotificationCallBack,
+  SearchProgressCallBack,
+  ProgressBarProps,
+  NotificationProps,
 };

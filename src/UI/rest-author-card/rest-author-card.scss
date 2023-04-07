@@ -1,8 +1,10 @@
 $card-bg-primary-color: #fba01a;
 $card-bg-secondary-color: #ffe4bc;
 $card-shadow-color: #ccc;
+$overlay-color: rgba(0, 0, 0, 0.5);
 
 .overlay-click-catcher {
+  background-color: $overlay-color;
   position: fixed;
   top: 0;
   left: 0;

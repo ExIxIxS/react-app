@@ -1,10 +1,25 @@
-import { CardAuthorProps, SearchCallBack } from 'interfaces';
+import {
+  CardAuthorProps,
+  NotificationCallBack,
+  SearchCallBack,
+  SearchProgressCallBack,
+} from 'interfaces';
 import { getRestAuthorCardData, processCardData, processSearch } from '../rest/rest-functions';
 
-function getKeyDownHandler<T extends SearchCallBack>(keyType: string, callBack: T) {
+function getKeyDownHandler<
+  T extends SearchCallBack,
+  U extends NotificationCallBack,
+  X extends SearchProgressCallBack
+>(keyType: string, searchCallBack: T, notificationCallBack: U, searchProgressCallBack: X) {
   return async (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === keyType) {
-      await processSearch((e.target as HTMLInputElement).value, callBack);
+      searchProgressCallBack(true);
+      await processSearch(
+        (e.target as HTMLInputElement).value,
+        searchCallBack,
+        notificationCallBack
+      );
+      searchProgressCallBack(false);
     }
   };
 }

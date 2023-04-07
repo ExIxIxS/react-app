@@ -1,10 +1,11 @@
+$primary-color: #fba01a;
+
 .search-panel {
   width: 80%;
   max-width: 770px;
 
   &__input {
       width: 100%;
-      margin: 20px 0;
       padding: 1.2rem 1rem;
       border: 1px solid #ccc;
       border-radius: 1.25rem;
@@ -12,7 +13,7 @@
 
     &:focus {
       outline: none;
-      box-shadow: 0 0 16px 2px #fba01a;
+      box-shadow: 0 0 16px 2px $primary-color;
     }
   }
 }

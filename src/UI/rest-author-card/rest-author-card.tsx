@@ -1,6 +1,7 @@
 import { CardAuthorProps } from '../../interfaces';
 
 import './rest-author-card.scss';
+
 function RestAuthorCard(cardData: CardAuthorProps): JSX.Element {
   return (
     <>

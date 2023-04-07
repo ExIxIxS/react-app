@@ -1,6 +1,7 @@
 import {
   AuthorCardData,
   CardAuthorProps,
+  NotificationCallBack,
   RestAuthor,
   RestAuthorData,
   RestSearchData,
@@ -51,14 +52,24 @@ async function getRestAuthorCardData(authorId: string): Promise<AuthorCardData |
   }
 }
 
-async function processSearch(searchQuery: string, responseCallBack: SearchCallBack) {
+async function processSearch(
+  searchQuery: string,
+  responseCallBack: SearchCallBack,
+  notificationCallBack: NotificationCallBack
+) {
   try {
+    notificationCallBack('');
     const data = await getRestSearch(searchQuery);
     if (data) {
       responseCallBack(data);
     }
+    if (!data?.length) {
+      notificationCallBack('nothing found');
+    }
   } catch {
-    throw new Error('Unable to process data');
+    const errorMessage = 'Unable to process data';
+    notificationCallBack(errorMessage);
+    throw new Error(errorMessage);
   }
 }
 
