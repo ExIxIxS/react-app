@@ -6,10 +6,11 @@ function RestAuthorCard(cardData: CardAuthorProps): JSX.Element {
   return (
     <>
       <div className="overlay-click-catcher" onClick={cardData.clickHandler}></div>
-      <div className="rest-author-card" data-testid="card">
+      <div className="rest-author-card" data-testid="rest-author-card">
         <button className="rest-author-card__close-button" onClick={cardData.clickHandler}></button>
         <img
           className="rest-author-card__image"
+          data-testid="rest-author-card__image"
           src={cardData.picture ? String(cardData.picture) : '../src/assets/img/react.png'}
           alt={`${cardData.name} profile picture`}
         />

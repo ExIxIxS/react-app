@@ -12,7 +12,7 @@ const baseUrl = 'https://openlibrary.org'; // API root url
 
 async function getRestSearch(query: string): Promise<RestAuthorData[] | void> {
   const baseSearcUrl = baseUrl + '/search/authors.json?q=';
-  const searcUrl = query ? baseSearcUrl + query : baseSearcUrl + 'react';
+  const searcUrl = query ? baseSearcUrl + query : baseSearcUrl + 'king';
 
   try {
     const response = await fetch(searcUrl);
@@ -35,20 +35,16 @@ async function getRestAuthor(authorId: string): Promise<RestAuthor | void> {
 }
 
 async function getRestAuthorCardData(authorId: string): Promise<AuthorCardData | void> {
-  try {
-    const data = await getRestAuthor(authorId);
-    if (data) {
-      return {
-        photos: data.photos,
-        personal_name: data.personal_name,
-        birth_date: data.birth_date,
-        entity_type: data.entity_type,
-        wikipedia: data.wikipedia,
-        bio: data.bio,
-      };
-    }
-  } catch {
-    throw new Error('Unable to process data');
+  const data = await getRestAuthor(authorId);
+  if (data) {
+    return {
+      photos: data.photos,
+      personal_name: data.personal_name,
+      birth_date: data.birth_date,
+      entity_type: data.entity_type,
+      wikipedia: data.wikipedia,
+      bio: data.bio,
+    };
   }
 }
 
@@ -88,15 +84,11 @@ function processCardData(cardData: AuthorCardData, clickHandler: () => void): Ca
         : cardData.bio?.value
         ? cardData.bio?.value
         : 'unknown',
-    clickHandler: clickHandler
-      ? () => {
-          clickHandler();
-          document.body.classList.remove('overlay');
-        }
-      : () => {
-          throw new ErrorEvent('wrong event handling');
-        },
+    clickHandler: () => {
+      clickHandler();
+      document.body.classList.remove('overlay');
+    },
   };
 }
 
-export { getRestSearch, processSearch, getRestAuthorCardData, processCardData };
+export { getRestSearch, processSearch, getRestAuthorCardData, processCardData, getRestAuthor };

@@ -49,7 +49,7 @@ interface FormInputData {
   status: string[];
   gender: string;
   notifications: boolean;
-  picture: FileList;
+  picture: FileList | undefined;
 }
 
 type CustomFieldErrors = {
@@ -92,7 +92,7 @@ type SearchProgressCallBack = (arg: boolean) => void;
 type AuthorCallBack = (arg: RestAuthor) => void;
 
 interface RestAuthor {
-  wikipedia: string;
+  wikipedia: string | undefined;
   personal_name: string;
   key: string;
   alternate_names: string[];
@@ -116,7 +116,7 @@ interface RestAuthor {
   }[];
   name: string;
   title: string;
-  birth_date: string;
+  birth_date: string | undefined;
   entity_type: string;
   photos: [number, number];
   source_records: string[];
@@ -148,7 +148,7 @@ interface CardAuthorProps {
   autorType: string;
   wikiLink: string;
   bio: string;
-  clickHandler?: () => void;
+  clickHandler: () => void;
 }
 
 interface ProgressBarProps {
@@ -157,6 +157,13 @@ interface ProgressBarProps {
 
 interface NotificationProps {
   notification: string;
+}
+
+interface TestUserResponse {
+  numFound: number;
+  start: number;
+  numFoundExact: boolean;
+  docs: RestAuthor[];
 }
 
 export type {
@@ -181,4 +188,5 @@ export type {
   SearchProgressCallBack,
   ProgressBarProps,
   NotificationProps,
+  TestUserResponse,
 };

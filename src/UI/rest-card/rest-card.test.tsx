@@ -1,22 +1,22 @@
-import { render, screen } from '@testing-library/react';
-import Card from './rest-card';
-import { CardProps } from 'interfaces';
+import { fireEvent, render, screen } from '@testing-library/react';
+import RestCard from './rest-card';
 
-describe('Card', () => {
-  const props: CardProps = {
-    name: 'John Smith',
-    dateOfBirth: '01-01-2000',
-    country: 'USA',
-    status: ['parent'],
-    gender: 'male',
-    notifications: false,
-    picture: '',
+import { RestCardProps } from 'interfaces';
+import { act } from 'react-dom/test-utils';
+
+describe('RestCard', () => {
+  const props: RestCardProps = {
+    id: 'OL146605A',
+    name: 'Edgar',
+    birthDate: 'string',
+    topWork: 'top work name',
+    workCount: 2323,
   };
 
-  const { container, unmount } = render(<Card {...props} />);
+  const { container, unmount } = render(<RestCard {...props} />);
 
   beforeEach(() => {
-    render(<Card {...props} />);
+    render(<RestCard {...props} />);
   });
 
   afterEach(() => {
@@ -27,14 +27,11 @@ describe('Card', () => {
     expect(container).toBeInTheDocument();
   });
 
-  it('includes img url', () => {
-    const imgElement = screen.getByAltText(`${props.name} profile picture`) as HTMLImageElement;
-    expect(imgElement?.src).toEqual('http://localhost:3000/src/assets/img/react.png');
-  });
+  it('should render RestAuthorCard when showModal is true', async () => {
+    const restCard = screen.getByTestId('rest-card');
+    await act(() => fireEvent.click(restCard));
 
-  it('displays the correct notifications status', () => {
-    const notificationsElement = screen.getByTestId('notifications-element');
-    const expectedText = `Notifications: ${props.notifications ? 'Enabled' : 'Disabled'}`;
-    expect(notificationsElement).toHaveTextContent(expectedText);
+    const restAuthorCard = screen.getByTestId('rest-author-card');
+    expect(restAuthorCard).toBeInTheDocument();
   });
 });

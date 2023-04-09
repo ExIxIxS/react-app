@@ -1,7 +1,8 @@
-import { render, fireEvent, act } from '@testing-library/react';
+import { render, fireEvent } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { vi } from 'vitest';
 import CardForm from './card-form';
+import { act } from 'react-dom/test-utils';
 
 const mockCreateObjectURL = vi.fn();
 global.URL.createObjectURL = mockCreateObjectURL;
@@ -25,33 +26,27 @@ describe('CardForm component', () => {
 
   it('should submit the form with the correct data', async () => {
     const user = userEvent.setup();
-    fireEvent.change(nameInput, { target: { value: 'John' } });
-    fireEvent.change(surnameInput, { target: { value: 'Doe' } });
-    fireEvent.change(dobInput, { target: { value: '1990-01-01' } });
-    fireEvent.change(countrySelect, { target: { value: 'usa' } });
-    fireEvent.click(maleRadio);
-    fireEvent.click(notificationsCheckbox);
     const testFile = new File(['testFile'], 'test.png', { type: 'image/png' });
-    await user.upload(pictureInput, testFile);
 
-    await new Promise((resolve) => setTimeout(resolve, 0));
-
-    act(() => {
+    await act(async () => {
+      fireEvent.change(nameInput, { target: { value: 'John' } });
+      fireEvent.change(surnameInput, { target: { value: 'Doe' } });
+      fireEvent.change(dobInput, { target: { value: '1990-01-01' } });
+      fireEvent.change(countrySelect, { target: { value: 'usa' } });
+      fireEvent.click(maleRadio);
+      fireEvent.click(notificationsCheckbox);
+      await user.upload(pictureInput, testFile);
       fireEvent.click(submitButton);
     });
 
-    await new Promise((resolve) => setTimeout(resolve, 0));
     expect(testCallBack).toHaveBeenCalledTimes(1);
   });
 
   it('should not submit the form when there are errors', async () => {
-    fireEvent.change(nameInput, { target: { value: 'John' } });
-
     act(() => {
+      fireEvent.change(nameInput, { target: { value: 'John' } });
       fireEvent.click(submitButton);
     });
-
-    await new Promise((resolve) => setTimeout(resolve, 0));
 
     expect(testCallBack).toHaveBeenCalledTimes(0);
   });

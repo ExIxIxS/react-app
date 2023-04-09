@@ -8,7 +8,6 @@ import './rest-card.scss';
 
 function RestCard(props: RestCardProps): JSX.Element {
   const [showModal, setShowModal] = useState(false);
-
   const [cardData, setCardData] = useState<CardAuthorProps>({
     picture: '',
     name: '',
