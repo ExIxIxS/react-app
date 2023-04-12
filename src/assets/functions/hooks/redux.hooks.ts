@@ -1,28 +1,19 @@
-import { SearchSelector } from 'interfaces';
-import { change, selectSearch } from '../../../features/search/searchSlice';
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { changeSearchQuery, selectSearchQuery } from '../../../features/search/searchQuerySlice';
 
-function getStoredValueSelector(type: string): SearchSelector {
-  switch (type) {
-    case 'searchQuery':
-      return selectSearch;
-    default:
-      return selectSearch;
-  }
-}
-
-function useAppStore(key: string, initialValue: string): [string, (value: string) => void] {
+function useStoreSearcQuery(initialValue: string): [string, (value: string) => void] {
   const dispatch = useDispatch();
-  const storedValue = useSelector(getStoredValueSelector(key));
+  const storedValue = useSelector(selectSearchQuery);
   const [value, setValue] = useState(storedValue ?? initialValue);
 
   const changeValue = (arg: string) => {
     setValue(arg);
-    dispatch(change(arg));
+    dispatch(changeSearchQuery(arg));
+    console.log(`dispatch(changeSearchQuery(arg)) --> ${arg}`);
   };
 
   return [value, changeValue];
 }
 
-export { useAppStore };
+export { useStoreSearcQuery };

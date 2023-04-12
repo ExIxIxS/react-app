@@ -173,15 +173,22 @@ interface Link {
   label: string;
 }
 
-interface SearchState {
+interface SearchQueryState {
   value: string;
 }
 
-interface AppStoreState {
-  searcher: SearchState;
+interface SearchResultState {
+  value: RestAuthorData[];
 }
 
-type SearchSelector = (state: AppStoreState) => string;
+interface AppStoreState {
+  searchQuery: SearchQueryState;
+  searchResult: SearchResultState;
+}
+
+type SearchQuerySelector = (state: AppStoreState) => string;
+
+type SearchResultSelector = (state: AppStoreState) => RestAuthorData[];
 
 export type {
   User,
@@ -207,8 +214,10 @@ export type {
   NotificationProps,
   TestUserResponse,
   Link,
-  SearchStateCallBack,
-  SearchState,
   AppStoreState,
-  SearchSelector,
+  SearchStateCallBack,
+  SearchQueryState,
+  SearchQuerySelector,
+  SearchResultState,
+  SearchResultSelector,
 };

@@ -1,9 +1,11 @@
 import { configureStore } from '@reduxjs/toolkit';
-import searchReducer from '../features/search/searchSlice';
+import searchQueryReducer from '../features/search/searchQuerySlice';
+import searchResultReducer from '../features/search/searchResultSlice';
 
 const appStore = configureStore({
   reducer: {
-    searcher: searchReducer,
+    searchQuery: searchQueryReducer,
+    searchResult: searchResultReducer,
   },
 });
 

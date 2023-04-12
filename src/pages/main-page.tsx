@@ -7,20 +7,20 @@ import SearchNotification from '../UI/search-notification/search-notification';
 import { RestAuthorData } from 'interfaces';
 
 function MainPage(): JSX.Element {
-  const [authors, setAutors] = useState<RestAuthorData[]>([]);
+  const [restCards, setRestCards] = useState<RestAuthorData[]>([]);
   const [notification, setNotification] = useState('');
   const [isSearchInProgress, setIsSearchInProgress] = useState(false);
 
   return (
     <>
       <SearchBar
-        responseCallBack={setAutors}
+        responseCallBack={setRestCards}
         notificationCallBack={setNotification}
         progressCallBack={setIsSearchInProgress}
       />
       <ProgressBar isInProgress={isSearchInProgress}></ProgressBar>
       <SearchNotification notification={notification}></SearchNotification>
-      <RestCardWrapper restAuthorsData={authors} />
+      <RestCardWrapper restAuthorsData={restCards} />
     </>
   );
 }
