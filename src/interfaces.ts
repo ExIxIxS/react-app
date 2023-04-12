@@ -91,6 +91,8 @@ type SearchProgressCallBack = (arg: boolean) => void;
 
 type AuthorCallBack = (arg: RestAuthor) => void;
 
+type SearchStateCallBack = NotificationCallBack;
+
 interface RestAuthor {
   wikipedia: string | undefined;
   personal_name: string;
@@ -166,6 +168,21 @@ interface TestUserResponse {
   docs: RestAuthor[];
 }
 
+interface Link {
+  to: string;
+  label: string;
+}
+
+interface SearchState {
+  value: string;
+}
+
+interface AppStoreState {
+  searcher: SearchState;
+}
+
+type SearchSelector = (state: AppStoreState) => string;
+
 export type {
   User,
   CardProps,
@@ -189,4 +206,9 @@ export type {
   ProgressBarProps,
   NotificationProps,
   TestUserResponse,
+  Link,
+  SearchStateCallBack,
+  SearchState,
+  AppStoreState,
+  SearchSelector,
 };

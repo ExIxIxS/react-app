@@ -15,6 +15,7 @@ function RestCard(props: RestCardProps): JSX.Element {
     autorType: 'unknown',
     wikiLink: '',
     bio: 'unknown',
+    clickHandler: () => null,
   });
 
   return (
