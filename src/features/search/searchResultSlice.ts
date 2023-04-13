@@ -2,7 +2,7 @@ import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 import { RestAuthorData, SearchResultSelector } from 'interfaces';
 
 const searchResultSlice = createSlice({
-  name: 'searchern',
+  name: 'searcher',
   initialState: {
     value: [] as RestAuthorData[],
   },

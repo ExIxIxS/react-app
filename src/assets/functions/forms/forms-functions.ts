@@ -1,6 +1,13 @@
-import { CardData, FormInputData } from 'interfaces';
+import { CardData, FormInputData, SerialFormInputData } from 'interfaces';
 
-function getCardData(submitData: FormInputData): CardData {
+function getSerialFormInputData(submitData: FormInputData): SerialFormInputData {
+  return {
+    ...submitData,
+    picture: submitData.picture?.length ? URL.createObjectURL(submitData.picture[0]) : '',
+  };
+}
+
+function getCardData(submitData: SerialFormInputData): CardData {
   return {
     name: `${submitData.name} ${submitData.surName}`,
     dateOfBirth: submitData.dateOfBirth,
@@ -8,8 +15,8 @@ function getCardData(submitData: FormInputData): CardData {
     status: submitData.status,
     gender: submitData.gender,
     notifications: submitData.notifications,
-    picture: submitData.picture?.length ? URL.createObjectURL(submitData.picture[0]) : '',
+    picture: submitData.picture,
   };
 }
 
-export { getCardData };
+export { getCardData, getSerialFormInputData };

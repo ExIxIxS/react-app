@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useStoreSearcQuery } from '../../assets/functions/hooks/redux.hooks';
+import { useStoreSearchQuery } from '../../assets/functions/hooks/redux.hooks';
 import { processSearch } from '../../assets/functions/rest/rest-functions';
 import { getKeyDownHandler } from '../../assets/functions/handlers/event-handler-functions';
 import {
@@ -20,8 +20,8 @@ function SearchBar({
   notificationCallBack: NotificationCallBack;
   progressCallBack: SearchProgressCallBack;
 }): JSX.Element {
-  const [searchQuery, setSearchQuery] = useStoreSearcQuery('');
-  const [searchInput, setSearchInput] = useState(searchQuery);
+  const [searchQuery, setSearchQuery] = useStoreSearchQuery('' as string);
+  const [searchInput, setSearchInput] = useState(searchQuery as string);
 
   useEffect(() => {
     processSearch(searchQuery, responseCallBack, notificationCallBack);

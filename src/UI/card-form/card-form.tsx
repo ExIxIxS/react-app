@@ -9,12 +9,15 @@ import {
   notificationsValidator,
   pictureValidator,
 } from '../../assets/validators/form-validators';
-import { getCardData } from '../../assets/functions/forms/forms-functions';
+import { getCardData, getSerialFormInputData } from '../../assets/functions/forms/forms-functions';
+import { useStoreFormSubmitResult } from '../../assets/functions/hooks/redux.hooks';
 import { FormInputData, SubmitCardCallBack } from '../../interfaces';
 
 import './card-form.scss';
 
 function CardForm({ addCardCallBack }: { addCardCallBack: SubmitCardCallBack }): JSX.Element {
+  const [, setFormSubmitResult] = useStoreFormSubmitResult();
+
   const {
     register,
     handleSubmit,
@@ -25,9 +28,11 @@ function CardForm({ addCardCallBack }: { addCardCallBack: SubmitCardCallBack }):
     shouldFocusError: false,
   });
 
-  function onSubmit(data: FormInputData, event?: React.BaseSyntheticEvent): void {
+  function onSubmit(inputData: FormInputData, event?: React.BaseSyntheticEvent): void {
     event?.preventDefault();
-    const cardData = getCardData(data);
+    const serializedInputData = getSerialFormInputData(inputData);
+    setFormSubmitResult(serializedInputData);
+    const cardData = getCardData(serializedInputData);
     addCardCallBack(cardData);
     reset();
   }

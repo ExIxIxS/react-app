@@ -3,11 +3,11 @@ import SearchBar from '../UI/search-bar/search-bar';
 import RestCardWrapper from '../UI/rest-card-wrapper/rest-card-wrapper';
 import ProgressBar from '../UI/progress-bar/progress-bar';
 import SearchNotification from '../UI/search-notification/search-notification';
-
+import { useStoreSearchResult } from '../assets/functions/hooks/redux.hooks';
 import { RestAuthorData } from 'interfaces';
 
 function MainPage(): JSX.Element {
-  const [restCards, setRestCards] = useState<RestAuthorData[]>([]);
+  const [restCards, setRestCards] = useStoreSearchResult([] as RestAuthorData[]);
   const [notification, setNotification] = useState('');
   const [isSearchInProgress, setIsSearchInProgress] = useState(false);
 

@@ -52,6 +52,12 @@ interface FormInputData {
   picture: FileList | undefined;
 }
 
+type SerialFormInputData = Pick<
+  FormInputData,
+  'name' | 'surName' | 'dateOfBirth' | 'country' | 'status' | 'gender' | 'notifications'
+> &
+  Pick<CardData, 'picture'>;
+
 type CustomFieldErrors = {
   [key: string]: {
     message: string;
@@ -181,14 +187,21 @@ interface SearchResultState {
   value: RestAuthorData[];
 }
 
+interface FormSubmitResultState {
+  value: SerialFormInputData;
+}
+
 interface AppStoreState {
   searchQuery: SearchQueryState;
   searchResult: SearchResultState;
+  formSubmitResult: FormSubmitResultState;
 }
 
 type SearchQuerySelector = (state: AppStoreState) => string;
 
 type SearchResultSelector = (state: AppStoreState) => RestAuthorData[];
+
+type FormSubmitResultSelector = (state: AppStoreState) => SerialFormInputData;
 
 export type {
   User,
@@ -199,6 +212,7 @@ export type {
   HeaderLink,
   SubmitCardCallBack,
   FormInputData,
+  SerialFormInputData,
   FormErrorProps,
   RestCardProps,
   RestAuthorData,
@@ -220,4 +234,5 @@ export type {
   SearchQuerySelector,
   SearchResultState,
   SearchResultSelector,
+  FormSubmitResultSelector,
 };
