@@ -48,6 +48,17 @@ async function getRestAuthorCardData(authorId: string): Promise<AuthorCardData |
   }
 }
 
+function serializeAuthorCardData(data: RestAuthor): AuthorCardData {
+  return {
+    photos: data.photos,
+    personal_name: data.personal_name,
+    birth_date: data.birth_date,
+    entity_type: data.entity_type,
+    wikipedia: data.wikipedia,
+    bio: data.bio,
+  };
+}
+
 async function processSearch(
   searchQuery: string,
   responseCallBack: SearchCallBack,
@@ -69,7 +80,7 @@ async function processSearch(
   }
 }
 
-function processCardData(cardData: AuthorCardData, clickHandler: () => void): CardAuthorProps {
+function getAuthorCardProps(cardData: AuthorCardData, clickHandler: () => void): CardAuthorProps {
   return {
     picture: +cardData.photos?.[0]
       ? `http://covers.openlibrary.org/b/id/${cardData.photos[0]}-M.jpg`
@@ -91,4 +102,11 @@ function processCardData(cardData: AuthorCardData, clickHandler: () => void): Ca
   };
 }
 
-export { getRestSearch, processSearch, getRestAuthorCardData, processCardData, getRestAuthor };
+export {
+  getRestSearch,
+  processSearch,
+  getRestAuthorCardData,
+  getAuthorCardProps,
+  getRestAuthor,
+  serializeAuthorCardData,
+};

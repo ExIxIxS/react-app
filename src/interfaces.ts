@@ -126,7 +126,7 @@ interface RestAuthor {
   title: string;
   birth_date: string | undefined;
   entity_type: string;
-  photos: [number, number];
+  photos: number[];
   source_records: string[];
   bio: {
     type: string;

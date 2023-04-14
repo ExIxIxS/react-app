@@ -1,5 +1,5 @@
 import { CardAuthorProps, SearchStateCallBack } from 'interfaces';
-import { getRestAuthorCardData, processCardData } from '../rest/rest-functions';
+import { getRestAuthorCardData, getAuthorCardProps } from '../rest/rest-functions';
 
 function getKeyDownHandler(keyType: string, searchStateCallBack: SearchStateCallBack) {
   return async (e: React.KeyboardEvent<HTMLInputElement>) => {
@@ -21,7 +21,7 @@ function getCardClickHandler(
     const authorId = (e.currentTarget as HTMLElement).id;
     const cardData = await getRestAuthorCardData(authorId);
     if (cardData) {
-      cardDataSetter(processCardData(cardData, clickHandler));
+      cardDataSetter(getAuthorCardProps(cardData, clickHandler));
       cardShowStateSetter(true);
       document.body.classList.add('overlay');
     }
