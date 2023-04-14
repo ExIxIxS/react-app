@@ -4,7 +4,7 @@ import { SearchQuerySelector } from 'interfaces';
 const searchQuerySlice = createSlice({
   name: 'searcher',
   initialState: {
-    value: '',
+    value: 'J R R Tolkien',
   },
   reducers: {
     changeSearchQuery: (state, action: PayloadAction<string>) => {

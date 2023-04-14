@@ -24,7 +24,8 @@ function RestCard(props: RestCardProps): JSX.Element {
         id={props.id}
         className="rest-card"
         data-testid="rest-card"
-        onClick={getCardClickHandler(setShowModal, setCardData, () => setShowModal(false))}
+        onClick={() => setShowModal(true)}
+        // onClick={getCardClickHandler(setShowModal, setCardData, () => setShowModal(false))}
       >
         <div className="rest-card__content">
           <div className="rest-card__info">

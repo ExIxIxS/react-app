@@ -1,31 +1,17 @@
-import { useEffect, useState } from 'react';
-import { useStoreSearchQuery } from '../../assets/functions/hooks/redux.hooks';
-import { processSearch } from '../../assets/functions/rest/rest-functions';
+import { useState } from 'react';
 import { getKeyDownHandler } from '../../assets/functions/handlers/event-handler-functions';
-import {
-  NotificationCallBack,
-  SearchCallBack,
-  SearchProgressCallBack,
-  SearchStateCallBack,
-} from 'interfaces';
 
 import './search-bar.scss';
 
 function SearchBar({
-  responseCallBack,
-  notificationCallBack,
-  progressCallBack,
+  searchQuery,
+  updateSearchQuery,
 }: {
-  responseCallBack: SearchCallBack;
-  notificationCallBack: NotificationCallBack;
-  progressCallBack: SearchProgressCallBack;
+  searchQuery: string;
+  updateSearchQuery: (query: string) => void;
 }): JSX.Element {
-  const [searchQuery, setSearchQuery] = useStoreSearchQuery('' as string);
-  const [searchInput, setSearchInput] = useState(searchQuery as string);
-
-  useEffect(() => {
-    processSearch(searchQuery, responseCallBack, notificationCallBack);
-  }, []);
+  const initialSearchQuery = searchQuery;
+  const [searchInput, setSearchInput] = useState(initialSearchQuery);
 
   return (
     <div className="search-panel">
@@ -36,12 +22,7 @@ function SearchBar({
         onChange={async (e: React.ChangeEvent<HTMLInputElement>) => {
           setSearchInput(e.target.value);
         }}
-        onKeyDown={getKeyDownHandler<
-          SearchCallBack,
-          NotificationCallBack,
-          SearchProgressCallBack,
-          SearchStateCallBack
-        >('Enter', responseCallBack, notificationCallBack, progressCallBack, setSearchQuery)}
+        onKeyDown={getKeyDownHandler('Enter', updateSearchQuery)}
       />
     </div>
   );
