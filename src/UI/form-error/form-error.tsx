@@ -1,7 +1,7 @@
 import { ErrorMessage } from '@hookform/error-message';
 import { FormErrorProps } from 'interfaces';
 
-function FormError({ errors, name }: FormErrorProps) {
+function FormError({ errors, name }: FormErrorProps): JSX.Element {
   return (
     <ErrorMessage
       errors={errors}

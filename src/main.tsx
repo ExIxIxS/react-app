@@ -1,7 +1,6 @@
 import ReactDOM from 'react-dom/client';
 import { createBrowserRouter, RouterProvider, Outlet } from 'react-router-dom';
 import { Provider } from 'react-redux';
-
 import appStore from './app/reduxStore';
 import MainPage from './pages/main-page';
 import AboutUsPage from './pages/about-us-page';

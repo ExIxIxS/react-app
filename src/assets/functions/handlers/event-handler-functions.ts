@@ -1,5 +1,4 @@
-import { CardAuthorProps, SearchStateCallBack } from 'interfaces';
-import { getRestAuthorCardData, getAuthorCardProps } from '../rest/rest-functions';
+import { CardData, SearchStateCallBack } from 'interfaces';
 
 function getKeyDownHandler(keyType: string, searchStateCallBack: SearchStateCallBack) {
   return async (e: React.KeyboardEvent<HTMLInputElement>) => {
@@ -10,22 +9,16 @@ function getKeyDownHandler(keyType: string, searchStateCallBack: SearchStateCall
   };
 }
 
-// onClick={getCardClickHandler(setShowModal, setCardData, () => setShowModal(false))}
-
-function getCardClickHandler(
-  cardShowStateSetter: React.Dispatch<React.SetStateAction<boolean>>,
-  cardDataSetter: React.Dispatch<React.SetStateAction<CardAuthorProps>>,
-  clickHandler: () => void
-) {
-  return async (e: React.MouseEvent) => {
-    const authorId = (e.currentTarget as HTMLElement).id;
-    const cardData = await getRestAuthorCardData(authorId);
-    if (cardData) {
-      cardDataSetter(getAuthorCardProps(cardData, clickHandler));
-      cardShowStateSetter(true);
-      document.body.classList.add('overlay');
-    }
+function getNewCard(cardObj?: CardData): CardData {
+  return {
+    name: cardObj?.name ?? 'User name',
+    dateOfBirth: cardObj?.dateOfBirth ?? '-',
+    country: cardObj?.country ?? '-',
+    status: cardObj?.status ?? ['-'],
+    gender: cardObj?.gender ?? 'male',
+    notifications: cardObj?.notifications ?? true,
+    picture: cardObj?.picture ?? '../src/assets/img/react.png',
   };
 }
 
-export { getKeyDownHandler, getCardClickHandler };
+export { getKeyDownHandler, getNewCard };
