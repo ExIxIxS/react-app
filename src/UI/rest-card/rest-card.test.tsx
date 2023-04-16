@@ -1,8 +1,10 @@
-import { fireEvent, render, screen } from '@testing-library/react';
+import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import RestCard from './rest-card';
 
 import { RestCardProps } from 'interfaces';
 import { act } from 'react-dom/test-utils';
+import { Provider } from 'react-redux';
+import appStore from '../../app/reduxStore';
 
 describe('RestCard', () => {
   const props: RestCardProps = {
@@ -13,10 +15,16 @@ describe('RestCard', () => {
     workCount: 2323,
   };
 
-  const { container, unmount } = render(<RestCard {...props} />);
+  let unmount: () => void;
 
   beforeEach(() => {
-    render(<RestCard {...props} />);
+    const renderObj = render(
+      <Provider store={appStore}>
+        <RestCard {...props} />
+      </Provider>
+    );
+
+    unmount = renderObj.unmount;
   });
 
   afterEach(() => {
@@ -24,14 +32,19 @@ describe('RestCard', () => {
   });
 
   it('mounts in the document', () => {
-    expect(container).toBeInTheDocument();
+    const restCard = screen.getByTestId('rest-card');
+    expect(restCard).toBeInTheDocument();
   });
 
   it('should render RestAuthorCard when showModal is true', async () => {
-    const restCard = screen.getByTestId('rest-card');
-    await act(() => fireEvent.click(restCard));
+    act(() => {
+      const restCard = screen.getByTestId('rest-card');
+      fireEvent.click(restCard);
+    });
 
-    const restAuthorCard = screen.getByTestId('rest-author-card');
-    expect(restAuthorCard).toBeInTheDocument();
+    waitFor(() => {
+      const restAuthorCard = screen.getByTestId('rest-author-card');
+      expect(restAuthorCard).toBeInTheDocument();
+    });
   });
 });

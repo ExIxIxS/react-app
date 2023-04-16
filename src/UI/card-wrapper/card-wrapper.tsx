@@ -1,7 +1,8 @@
 import React from 'react';
 import Card from '../card/card';
-import './card-wrapper.scss';
 import { CardWrapperProps } from '../../interfaces';
+
+import './card-wrapper.scss';
 
 const MemoizedCard = React.memo(Card);
 

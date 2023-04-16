@@ -3,6 +3,8 @@ import userEvent from '@testing-library/user-event';
 import { vi } from 'vitest';
 import CardForm from './card-form';
 import { act } from 'react-dom/test-utils';
+import { Provider } from 'react-redux';
+import appStore from '../../app/reduxStore';
 
 const mockCreateObjectURL = vi.fn();
 global.URL.createObjectURL = mockCreateObjectURL;
@@ -10,7 +12,11 @@ global.URL.createObjectURL = mockCreateObjectURL;
 describe('CardForm component', () => {
   const testCallBack = vi.fn();
 
-  const { getByTestId } = render(<CardForm addCardCallBack={testCallBack} />);
+  const { getByTestId } = render(
+    <Provider store={appStore}>
+      <CardForm addCardCallBack={testCallBack} />
+    </Provider>
+  );
   const nameInput = getByTestId('name-input');
   const surnameInput = getByTestId('surname-input');
   const dobInput = getByTestId('dob-input');
