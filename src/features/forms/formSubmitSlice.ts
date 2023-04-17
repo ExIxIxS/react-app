@@ -16,6 +16,6 @@ const formSubmitSlice = createSlice({
 const selectFormSubmitResult: FormSubmitResultSelector = (state) => state.formSubmitResult.value;
 const { changeFormSubmitResult } = formSubmitSlice.actions;
 
-export { changeFormSubmitResult, selectFormSubmitResult };
+export { formSubmitSlice, changeFormSubmitResult, selectFormSubmitResult };
 
 export default formSubmitSlice.reducer;

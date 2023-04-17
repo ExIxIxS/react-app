@@ -6,6 +6,14 @@ interface User {
   name: string;
 }
 
+interface RestCardProps {
+  id: string;
+  name: string;
+  birthDate: string;
+  topWork: string;
+  workCount: number;
+}
+
 interface CardProps {
   name: string;
   dateOfBirth: string;
@@ -16,30 +24,11 @@ interface CardProps {
   picture: string | URL;
 }
 
-interface RestCardProps {
-  id: string;
-  name: string;
-  birthDate: string;
-  topWork: string;
-  workCount: number;
-}
-
 interface CardData extends CardProps {}
 
 interface CardWrapperProps {
   cards: CardData[];
 }
-
-interface HeaderLink {
-  to: string;
-  label: string;
-}
-
-interface HeaderProps {
-  links: HeaderLink[];
-}
-
-type SubmitCardCallBack = (data: SerialFormInputData) => void;
 
 interface FormInputData {
   name: string;
@@ -57,6 +46,17 @@ type SerialFormInputData = Pick<
   'name' | 'surName' | 'dateOfBirth' | 'country' | 'status' | 'gender' | 'notifications'
 > &
   Pick<CardData, 'picture'>;
+
+interface HeaderLink {
+  to: string;
+  label: string;
+}
+
+interface HeaderProps {
+  links: HeaderLink[];
+}
+
+type SubmitCardCallBack = (data: SerialFormInputData) => void;
 
 type CustomFieldErrors = {
   [key: string]: {
