@@ -39,7 +39,7 @@ interface HeaderProps {
   links: HeaderLink[];
 }
 
-type SubmitCardCallBack = (data: CardData) => void;
+type SubmitCardCallBack = (data: SerialFormInputData) => void;
 
 interface FormInputData {
   name: string;
@@ -188,7 +188,7 @@ interface SearchResultState {
 }
 
 interface FormSubmitResultState {
-  value: SerialFormInputData;
+  value: SerialFormInputData[];
 }
 
 interface AppStoreState {
@@ -201,7 +201,7 @@ type SearchQuerySelector = (state: AppStoreState) => string;
 
 type SearchResultSelector = (state: AppStoreState) => RestAuthorData[];
 
-type FormSubmitResultSelector = (state: AppStoreState) => SerialFormInputData;
+type FormSubmitResultSelector = (state: AppStoreState) => SerialFormInputData[];
 
 export type {
   User,

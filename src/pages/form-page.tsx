@@ -1,21 +1,15 @@
-import { useState } from 'react';
 import CardWrapper from '../UI/card-wrapper/card-wrapper';
 import CardForm from '../UI/card-form/card-form';
-import { CardData } from '../interfaces';
 import { getNewCard } from '../assets/functions/handlers/event-handler-functions';
+import { useStoreFormSubmitResults } from '../assets/functions/hooks/redux.hooks';
 
 function FormPage() {
-  const [cards, setCards] = useState<CardData[]>([]);
-
-  function addNewCard(cardObj: CardData): void {
-    const newCard = getNewCard(cardObj);
-    setCards([...cards, newCard]);
-  }
+  const [formSubmitResults, setFormSubmitResults] = useStoreFormSubmitResults();
 
   return (
     <>
-      <CardForm addCardCallBack={addNewCard} />
-      <CardWrapper cards={cards} />
+      <CardForm addCardCallBack={setFormSubmitResults} />
+      <CardWrapper cards={formSubmitResults.map((formSubmit) => getNewCard(formSubmit))} />
     </>
   );
 }

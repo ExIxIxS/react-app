@@ -4,20 +4,11 @@ import { FormSubmitResultSelector, SerialFormInputData } from 'interfaces';
 const formSubmitSlice = createSlice({
   name: 'forms',
   initialState: {
-    value: {
-      name: '',
-      surName: '',
-      dateOfBirth: '',
-      country: '',
-      status: [],
-      gender: '',
-      notifications: false,
-      picture: '',
-    } as SerialFormInputData,
+    value: [] as SerialFormInputData[],
   },
   reducers: {
     changeFormSubmitResult: (state, action: PayloadAction<SerialFormInputData>) => {
-      state.value = action.payload;
+      state.value = [...state.value, action.payload];
     },
   },
 });

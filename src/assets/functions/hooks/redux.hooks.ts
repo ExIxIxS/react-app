@@ -39,20 +39,20 @@ function useStoreSearchResult<T extends RestAuthorData[] = RestAuthorData[]>(
   return [value, changeValue];
 }
 
-function useStoreFormSubmitResult<T extends SerialFormInputData = SerialFormInputData>(): [
-  T,
+function useStoreFormSubmitResults<T extends SerialFormInputData = SerialFormInputData>(): [
+  T[],
   (value: T) => void
 ] {
   const dispatch = useDispatch();
-  const storedValue = useSelector(selectFormSubmitResult) as T;
+  const storedValue = useSelector(selectFormSubmitResult) as T[];
   const [value, setValue] = useState(storedValue);
 
   const changeValue = (arg: T) => {
-    setValue(arg);
+    setValue([...value, arg]);
     dispatch(changeFormSubmitResult(arg));
   };
 
   return [value, changeValue];
 }
 
-export { useStoreSearchQuery, useStoreSearchResult, useStoreFormSubmitResult };
+export { useStoreSearchQuery, useStoreSearchResult, useStoreFormSubmitResults };
