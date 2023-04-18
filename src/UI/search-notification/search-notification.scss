@@ -1,0 +1,8 @@
+.notification-bar {
+  min-height: 16px;
+  margin-top: 6px;
+
+  & &__message {
+    margin: 0;
+  }
+}
