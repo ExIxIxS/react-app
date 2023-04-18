@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useGetAuthorByIdQuery } from '../../services/openLibraryApi';
+import { useGetAuthorByIdQuery } from '../../services/libraryApi';
 import { getAuthorCardProps } from '../../assets/functions/rest/rest-functions';
 import { CardAuthorProps } from '../../interfaces';
 

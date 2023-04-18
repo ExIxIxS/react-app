@@ -1,6 +1,6 @@
 import { RestSearchData } from 'interfaces';
 import { expect } from 'vitest';
-import { authorsQueryObj } from './openLibraryApi';
+import { authorsQueryObj } from './libraryApi';
 
 describe('queryObj', () => {
   it('should have a query function that returns a string', () => {

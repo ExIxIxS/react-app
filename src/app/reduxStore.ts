@@ -3,7 +3,7 @@ import { setupListeners } from '@reduxjs/toolkit/query';
 import searchQueryReducer from '../features/search/searchQuerySlice';
 import searchResultReducer from '../features/search/searchResultSlice';
 import formSubmitReducer from '../features/forms/formSubmitSlice';
-import { libraryApi } from '../services/openLibraryApi';
+import { libraryApi } from '../services/libraryApi';
 
 const appStore = configureStore({
   reducer: {
