@@ -1,11 +1,17 @@
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { changeSearchQuery, selectSearchQuery } from '../../../features/search/searchQuerySlice';
-import { changeSearchResult, selectSearchResult } from '../../../features/search/searchResultSlice';
+import {
+  changeSearchQuery,
+  selectSearchQuery,
+} from '../../../appStore/features/search/searchQuerySlice';
+import {
+  changeSearchResult,
+  selectSearchResult,
+} from '../../../appStore/features/search/searchResultSlice';
 import {
   changeFormSubmitResult,
   selectFormSubmitResult,
-} from '../../../features/forms/formSubmitSlice';
+} from '../../../appStore/features/forms/formSubmitSlice';
 import { RestAuthorData, SerialFormInputData } from 'interfaces';
 
 function useStoreSearchQuery<T extends string = string>(initialValue: T): [T, (value: T) => void] {
@@ -29,9 +35,7 @@ function useStoreSearchResult<T extends RestAuthorData[] = RestAuthorData[]>(
   const [value, setValue] = useState(storedValue ?? initialValue);
 
   const changeValue = (arg: T) => {
-    const dataArr = arg
-      .sort((a, b) => b.work_count - a.work_count)
-      .filter((_, index) => index < 12) as T;
+    const dataArr = arg.sort((a, b) => b.work_count - a.work_count);
     dispatch(changeSearchResult(dataArr));
     setValue(dataArr);
   };

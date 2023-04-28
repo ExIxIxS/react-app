@@ -203,6 +203,11 @@ type SearchResultSelector = (state: AppStoreState) => RestAuthorData[];
 
 type FormSubmitResultSelector = (state: AppStoreState) => SerialFormInputData[];
 
+interface Assets {
+  style?: string;
+  script: string;
+}
+
 export type {
   User,
   CardProps,
@@ -235,4 +240,5 @@ export type {
   SearchResultState,
   SearchResultSelector,
   FormSubmitResultSelector,
+  Assets,
 };

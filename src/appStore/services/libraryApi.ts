@@ -1,5 +1,5 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'; // the React-specific entry point to import createApi
-import { getSerializedAuthorCardData } from '../assets/functions/rest/rest-functions';
+import { getSerializedAuthorCardData } from '../../assets/functions/rest/rest-functions';
 import { AuthorCardData, RestAuthor, RestAuthorData, RestSearchData } from 'interfaces';
 
 const baseApiUrl = 'https://openlibrary.org/';
