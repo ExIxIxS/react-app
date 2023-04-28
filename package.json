@@ -13,8 +13,8 @@
     "prettier": "npx prettier --write .",
     "test:unit": "vitest",
     "test:coverage-unit": "vitest run --coverage",
-    "test:e2e": "cypress run --e2e & npx nyc report --reporter=text-summary",
-    "test:open-e2e": "cypress open --e2e --browser chrome"
+    "test:e2e": "cypress open --e2e --browser chrome",
+    "test:coverage-e2e": "cypress run --e2e & npx nyc report --reporter=text-summary"
   },
   "dependencies": {
     "esbuild": "0.17.17",
