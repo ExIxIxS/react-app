@@ -1,6 +1,6 @@
 import { render, screen, waitFor } from '@testing-library/react';
 import { Provider } from 'react-redux';
-import appStore from '../../app/reduxStore';
+import appStore from '../../appStore/reduxStore';
 import RestAuthorCard from './rest-author-card';
 
 describe('RestAuthorCard', () => {

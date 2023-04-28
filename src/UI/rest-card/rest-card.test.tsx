@@ -4,7 +4,7 @@ import RestCard from './rest-card';
 import { RestCardProps } from 'interfaces';
 import { act } from 'react-dom/test-utils';
 import { Provider } from 'react-redux';
-import appStore from '../../app/reduxStore';
+import appStore from '../../appStore/reduxStore';
 
 describe('RestCard', () => {
   const props: RestCardProps = {

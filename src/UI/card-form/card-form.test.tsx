@@ -4,7 +4,7 @@ import { vi } from 'vitest';
 import CardForm from './card-form';
 import { act } from 'react-dom/test-utils';
 import { Provider } from 'react-redux';
-import appStore from '../../app/reduxStore';
+import appStore from '../../appStore/reduxStore';
 
 const mockCreateObjectURL = vi.fn();
 global.URL.createObjectURL = mockCreateObjectURL;

@@ -18,7 +18,7 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "noEmit": true,
-    "types": ["vitest/globals", "@testing-library/jest-dom"]
+    "types": ["cypress", "vitest/globals", "@testing-library/jest-dom", "node"]
   },
   "ts-node": {
     "esm": true,

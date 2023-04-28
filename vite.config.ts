@@ -3,27 +3,22 @@
 
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
+import istanbul from 'vite-plugin-istanbul';
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [react()],
+  plugins: [
+    react(),
+    istanbul({
+      cypress: true,
+      requireEnv: false,
+    }),
+  ],
   server: {
     open: true,
+    host: true,
+    port: 5180,
   },
-  /*
-  build: {
-    outDir: 'dist', // specify the output directory for built files
-    assetsDir: 'assets', // specify the assets directory for static assets
-    rollupOptions: {
-      // configure rollup options
-      output: {
-        entryFileNames: 'clientBundle.js', // specify the filename pattern for entry files
-        chunkFileNames: 'chunkBundle.[hash].js', // specify the filename pattern for chunk files
-        assetFileNames: 'bundle.[hash].[ext]', // specify the filename pattern for asset files
-      },
-    },
-  },
-  */
   test: {
     globals: true,
     environment: 'jsdom',
