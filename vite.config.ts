@@ -21,6 +21,18 @@ export default defineConfig({
   },
   test: {
     globals: true,
+    coverage: {
+      provider: 'c8',
+      all: true,
+      include: ['src/**/*.{js,jsx,ts,tsx}'],
+      exclude: [
+        'tests/**/*.{js,jsx,ts,tsx}',
+        'src/**/*.d.ts',
+        'src/**/*.test.tsx',
+        'src/__cy_unit_tests__',
+        'src/interfaces.ts',
+      ],
+    },
     environment: 'jsdom',
     setupFiles: ['./tests-setup.ts'],
   },

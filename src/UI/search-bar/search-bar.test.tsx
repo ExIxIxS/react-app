@@ -6,8 +6,7 @@ import { act } from 'react-dom/test-utils';
 describe('SearchBar', () => {
   let getByRole: (role: ByRoleMatcher, options?: ByRoleOptions | undefined) => HTMLElement;
   let unmount: () => void;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  let searchQuerySetter: Mock<any, any>;
+  let searchQuerySetter: Mock<string[], string>;
   const searchQuery = 'Query text';
 
   beforeEach(() => {

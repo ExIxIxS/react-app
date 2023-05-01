@@ -1,13 +1,11 @@
 import { PreloadedState } from '@reduxjs/toolkit';
 import { Provider } from 'react-redux';
-
 import { createAppStore, RootState } from '../appStore/reduxStore';
-import { AppRoutes } from '../appRoutes';
+import { AppRoutes } from '../appRoutes/appRoutes';
 import { BrowserRouter } from 'react-router-dom';
 
 declare global {
   interface Window {
-    //eslint-disable-next-line @typescript-eslint/no-explicit-any
     __PRELOADED_STATE__?: PreloadedState<RootState>;
   }
 }

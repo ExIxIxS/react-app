@@ -5,7 +5,7 @@ import { StaticRouter } from 'react-router-dom/server';
 
 import RootHtml from './rootHtml';
 import { setupListeners } from '@reduxjs/toolkit/dist/query';
-import { AppRoutes } from '../appRoutes';
+import { AppRoutes } from '../appRoutes/appRoutes';
 import { createAppStore } from '../appStore/reduxStore';
 import { Assets } from 'interfaces';
 

@@ -1,4 +1,3 @@
-//import fetch from 'cross-fetch';
 import { describe, it, expect } from 'vitest';
 
 import { TestUserResponse } from 'interfaces';

@@ -2,8 +2,9 @@ import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
 
-import express from 'express';
+import express, { Request, Response } from 'express';
 import { ViteDevServer } from 'vite';
+import { Assets } from 'interfaces.js';
 
 const dirname = path.dirname(fileURLToPath(import.meta.url));
 const isTest = process.env.VITEST;
@@ -42,10 +43,14 @@ export async function createServer(
     );
   }
 
-  app.use('*', async (req, res) => {
+  app.use('*', async (req: Request, res: Response) => {
     try {
       if (!isProd) {
-        const render = (await vite.ssrLoadModule('/src/ssrComponents/serverSide.tsx')).render;
+        const render = (await vite.ssrLoadModule('/src/ssrComponents/serverSide.tsx')).render as (
+          req: Request,
+          res: Response,
+          assets: Assets
+        ) => JSX.Element;
         const assets = { script: '/src/main.tsx', style: '/src/ssrComponents/serverStyle.css' };
         render(req, res, assets);
       } else {
@@ -63,11 +68,13 @@ export async function createServer(
         const assets = { style, script };
         render(req, res, assets);
       }
-    } catch (e) {
-      const err = e as Error;
-      !isProd && vite.ssrFixStacktrace(err);
-      console.log(err.stack);
-      res.status(500).end(err.stack);
+    } catch (e: unknown) {
+      if (e instanceof Error) {
+        const err = e;
+        !isProd && vite.ssrFixStacktrace(err);
+        console.log(err.stack);
+        res.status(500).end(err.stack);
+      }
     }
   });
 
@@ -81,5 +88,5 @@ if (!isTest) {
         console.log('http://localhost:5180');
       })
     )
-    .catch((e) => console.error(e));
+    .catch((e: Error) => console.error(e));
 }
