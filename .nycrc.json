@@ -1,0 +1,23 @@
+{
+  "all": true,
+  "extends": "@istanbuljs/nyc-config-typescript",
+  "check-coverage": true,
+  "include": [
+      "src/**/*.ts",
+      "src/**/*.tsx"
+    ],
+  "exclude": [
+      "cypress/**/*.*",
+      "**/*.d.ts",
+      "**/*.cy.tsx",
+      "**/*.cy.ts"
+    ],
+  "thresholds": {
+    "global": {
+      "statements": 80,
+      "branches": 10,
+      "functions": 10,
+      "lines": 50
+    }
+  }
+}
